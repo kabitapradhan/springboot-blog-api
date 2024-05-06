@@ -6,6 +6,7 @@ import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.blog.payload.UserDto;
 import com.blog.response.Responsedata;
 import com.blog.service.UserService;
+
+import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,7 +34,7 @@ public class UserController {
 	private UserService userService;
 	
 	@PostMapping("/")
-	public ResponseEntity<UserDto> createUser(@RequestBody UserDto dto){
+	public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto dto){
 		UserDto user = this.userService.createUser(dto);
 		return new ResponseEntity<>(user , HttpStatus.CREATED);	
 	}
@@ -55,8 +58,8 @@ public class UserController {
 	public ResponseEntity<?> deleteUser(@PathVariable("id") Integer id){
 		this.userService.deleteUser(id);
 		Responsedata res = new Responsedata();
-		res.setSuccess("Delete user data successfull");
-		res.setBol(true);
+		res.setMessage("Delete user data successfull");
+		res.setSuccess(true);
 		return new ResponseEntity<>(res , HttpStatus.CREATED);	
 	}
 

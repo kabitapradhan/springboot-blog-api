@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Responsedata {
 	
-	private String success;
-	private boolean bol;
+	private String message;
+	private boolean success;
 
 }
